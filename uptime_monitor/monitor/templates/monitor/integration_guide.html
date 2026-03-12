@@ -4,26 +4,6 @@
 
 {% block extra_head %}
 <style>
-  .page-hero {
-    padding: 6rem 0 4rem;
-    background: 
-      radial-gradient(ellipse 80% 60% at 50% 30%, rgba(255, 102, 0, 0.1) 0%, transparent 70%),
-      var(--dark-bg);
-    border-bottom: 1px solid var(--dark-border);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .page-hero::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image: 
-      linear-gradient(rgba(255, 102, 0, 0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 102, 0, 0.03) 1px, transparent 1px);
-    background-size: 40px 40px;
-    pointer-events: none;
-  }
 
   .info-content {
     padding: 5rem 0;
@@ -51,6 +31,21 @@
     margin-bottom: 1.5rem;
     color: var(--brand-primary);
   }
+
+  .coming-soon-badge {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: rgba(255, 102, 0, 0.1);
+    color: var(--brand-primary);
+    font-size: 0.65rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    padding: 0.35rem 0.75rem;
+    border-radius: 99px;
+    border: 1px solid rgba(255, 102, 0, 0.2);
+    letter-spacing: 0.05em;
+  }
 </style>
 {% endblock %}
 
@@ -72,29 +67,32 @@
     <div class="container">
         <div class="row g-4">
             <div class="col-md-6 col-lg-4">
-                <div class="integration-card">
+                <div class="integration-card position-relative">
+                    <span class="coming-soon-badge">Soon</span>
                     <i class="bi bi-slack integration-icon"></i>
                     <h3 class="h4 fw-bold mb-3">Slack</h3>
                     <p class="text-secondary small flex-grow-1">Streamline your incident response by routing uptime alerts directly to your team's Slack channels using incoming webhooks.</p>
-                    <a href="#" class="btn btn-outline-primary fw-bold mt-3">Connect Slack</a>
+                    <a href="javascript:void(0)" onclick="bootstrapAlert()" class="btn btn-outline-primary fw-bold mt-3">Connect Slack</a>
                 </div>
             </div>
             
             <div class="col-md-6 col-lg-4">
-                <div class="integration-card">
+                <div class="integration-card position-relative">
+                    <span class="coming-soon-badge">Soon</span>
                     <i class="bi bi-discord integration-icon"></i>
                     <h3 class="h4 fw-bold mb-3">Discord</h3>
                     <p class="text-secondary small flex-grow-1">Keep your community and developers informed. Post automatic status updates to your Discord server via customizable hooks.</p>
-                    <a href="#" class="btn btn-outline-primary fw-bold mt-3">Connect Discord</a>
+                    <a href="javascript:void(0)" onclick="bootstrapAlert()" class="btn btn-outline-primary fw-bold mt-3">Connect Discord</a>
                 </div>
             </div>
             
             <div class="col-md-6 col-lg-4">
-                <div class="integration-card">
+                <div class="integration-card position-relative">
+                    <span class="coming-soon-badge">Soon</span>
                     <i class="bi bi-code-slash integration-icon"></i>
                     <h3 class="h4 fw-bold mb-3">Webhooks</h3>
                     <p class="text-secondary small flex-grow-1">The ultimate flexibility. Trigger custom HTTP callbacks to your own internal tools or server-side scripts on status changes.</p>
-                    <a href="#" class="btn btn-outline-primary fw-bold mt-3">Configure Hooks</a>
+                    <a href="javascript:void(0)" onclick="bootstrapAlert()" class="btn btn-outline-primary fw-bold mt-3">Configure Hooks</a>
                 </div>
             </div>
         </div>
@@ -108,4 +106,55 @@
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    function bootstrapAlert() {
+        // Create a temporary toast styled as professional UptimeChecker notification
+        const toast = document.createElement('div');
+        toast.style.position = 'fixed';
+        toast.style.bottom = '30px';
+        toast.style.right = '30px';
+        toast.style.background = 'var(--dark-card)';
+        toast.style.border = '1px solid var(--brand-primary)';
+        toast.style.color = 'var(--text-primary)';
+        toast.style.padding = '1rem 1.5rem';
+        toast.style.borderRadius = '12px';
+        toast.style.boxShadow = '0 10px 30px rgba(0,0,0,0.5)';
+        toast.style.zIndex = '9999';
+        toast.style.display = 'flex';
+        toast.style.alignItems = 'center';
+        toast.style.gap = '12px';
+        toast.style.animation = 'slideIn 0.3s ease-out';
+        
+        toast.innerHTML = `
+            <i class="bi bi-info-circle-fill text-primary"></i>
+            <div>
+                <div style="font-weight: 700; font-size: 0.9rem;">Coming Soon!</div>
+                <div style="font-size: 0.8rem; color: var(--text-secondary);">This integration is currently under development.</div>
+            </div>
+        `;
+        
+        document.body.appendChild(toast);
+        
+        setTimeout(() => {
+            toast.style.animation = 'slideOut 0.3s ease-in';
+            setTimeout(() => toast.remove(), 300);
+        }, 3000);
+    }
+
+    const style = document.createElement('style');
+    style.innerHTML = `
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes slideOut {
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(100%); opacity: 0; }
+        }
+    `;
+    document.head.appendChild(style);
+</script>
 {% endblock %}

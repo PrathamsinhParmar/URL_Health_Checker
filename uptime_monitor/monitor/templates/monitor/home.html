@@ -8,6 +8,7 @@
     min-height: 85vh;
     display: flex;
     align-items: center;
+    padding: 3rem 0 4rem; /* Added padding to create a gap from the fixed navbar */
     position: relative;
     overflow: hidden;
   }
@@ -108,7 +109,8 @@
   /* Live stats bar */
   .stats-bar {
     display: flex;
-    gap: 2.5rem;
+    flex-wrap: wrap;
+    gap: 1.5rem 2.5rem;
     margin-top: 3rem;
     padding-top: 2rem;
     border-top: 1px solid var(--dark-border);
@@ -116,6 +118,7 @@
 
   .stats-bar .stat {
     text-align: left;
+    min-width: 120px;
   }
 
   .stats-bar .stat-num {
@@ -129,6 +132,43 @@
     font-size: 0.8rem;
     color: var(--text-muted);
     margin-top: 0.2rem;
+  }
+
+  @media (max-width: 991.98px) {
+    .hero-section {
+      text-align: center;
+      padding: 4rem 0;
+      min-height: auto;
+    }
+    .hero-subtitle {
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .d-flex.flex-wrap.gap-3 {
+      justify-content: center;
+    }
+    .stats-bar {
+      justify-content: center;
+      gap: 2rem;
+    }
+    .stats-bar .stat {
+      text-align: center;
+    }
+  }
+
+  @media (max-width: 575.98px) {
+    .hero-title {
+      font-size: 2.2rem;
+    }
+    .stats-bar {
+      gap: 1.5rem;
+    }
+    .stats-bar .stat {
+      min-width: 100px;
+    }
+    .stat-num {
+      font-size: 1.3rem !important;
+    }
   }
 
   /* Features section */

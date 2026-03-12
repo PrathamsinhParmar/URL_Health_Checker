@@ -87,17 +87,35 @@
     font-weight: 600;
   }
 
-  .info-item-value {
-    font-size: 0.95rem;
-    font-weight: 600;
-    color: var(--text-primary);
-    word-break: break-all;
-  }
-</style>
+    .info-item-value {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      word-break: break-all;
+    }
+
+    @media (max-width: 991.98px) {
+      .detail-hero h1 {
+        font-size: 1.5rem;
+      }
+      .chart-container {
+        height: 200px;
+      }
+    }
+
+    @media (max-width: 767.98px) {
+      .log-table-wrapper table th:nth-child(2),
+      .log-table-wrapper table td:nth-child(2),
+      .log-table-wrapper table th:nth-child(3),
+      .log-table-wrapper table td:nth-child(3) {
+        display: none;
+      }
+    }
+  </style>
 {% endblock %}
 
 {% block content %}
-<div class="container py-4">
+<div class="container pt-2 pb-4">
 
   <!-- Breadcrumb -->
   <nav aria-label="breadcrumb" class="mb-3">

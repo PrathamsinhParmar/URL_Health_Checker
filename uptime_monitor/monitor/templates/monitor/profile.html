@@ -6,10 +6,10 @@
 {% block extra_head %}
 <style>
   .profile-header {
-    padding: 1.5rem 0;
+    padding: 0.5rem 0;
     background: rgba(255, 102, 0, 0.01);
     border-bottom: 1px solid var(--dark-border);
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
   }
 
   .profile-avatar {
@@ -26,6 +26,7 @@
     margin-bottom: 0;
     box-shadow: 0 5px 20px rgba(255, 102, 0, 0.2);
   }
+
 
   .stat-card-mini {
     background: var(--dark-card);
@@ -95,7 +96,7 @@
 
 {% block content %}
 <div class="profile-header">
-  <div class="container">
+  <div class="container pt-2 pb-5">
     <div class="row align-items-center">
       <div class="col-md-auto">
         <div class="profile-avatar">
@@ -119,7 +120,7 @@
   </div>
 </div>
 
-<div class="container pb-5">
+<div class="container pt-2 pb-5">
   <div class="row g-4">
     <!-- Profile Edit Form -->
     <div class="col-lg-8">

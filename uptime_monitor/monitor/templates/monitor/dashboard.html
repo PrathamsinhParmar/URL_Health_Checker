@@ -3,22 +3,24 @@
 {% block title %}Dashboard — UptimeChecker{% endblock %}
 
 {% block content %}
-<div class="container py-4">
+<div class="container pt-2 pb-4">
 
   <!-- Page Header -->
-  <div class="d-flex align-items-center justify-content-between mb-4">
-    <div>
-      <h1 class="mb-1" style="font-weight: 800; font-size: 1.8rem;">
+  <div class="row align-items-end mb-4 gy-3">
+    <div class="col-md">
+      <h1 class="dash-title mb-1">
         <i class="bi bi-grid-fill me-2 text-gradient" style="font-style:normal;"></i>My Monitored URLs
       </h1>
-      <p class="mb-0" style="color: var(--text-secondary); font-size: 0.9rem;">
+      <p class="dash-subtitle mb-0">
         Welcome back, <strong>{{ request.user.username }}</strong> &mdash;
         {{ monitored_urls|length }} URL{{ monitored_urls|length|pluralize }} tracked.
       </p>
     </div>
-    <a href="{% url 'url_add' %}" class="btn btn-primary d-flex align-items-center gap-2" id="btn-add-url">
-      <i class="bi bi-plus-lg"></i> Add URL
-    </a>
+    <div class="col-md-auto">
+      <a href="{% url 'url_add' %}" class="btn btn-primary btn-dash d-inline-flex align-items-center justify-content-center gap-2" id="btn-add-url">
+        <i class="bi bi-plus-lg"></i> Add URL
+      </a>
+    </div>
   </div>
 
   {% if monitored_urls %}
@@ -76,7 +78,7 @@
               </td>
 
               <!-- URL -->
-              <td>
+              <td class="d-none d-lg-table-cell"> {# Hidden on small/medium, visible on large #}
                 <a href="{{ mu.url }}" target="_blank" rel="noopener"
                    class="text-decoration-none"
                    style="color: var(--text-secondary); font-size: 0.85rem; font-family: monospace;">
@@ -190,11 +192,89 @@
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
+
+  .dash-title {
+    font-size: 2.1rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+  }
+
+  .dash-subtitle {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    opacity: 0.8;
+  }
+
+  .btn-dash {
+    padding: 0.6rem 1.5rem;
+    font-size: 0.95rem;
+    border-radius: 10px;
+  }
+
+  /* Table Adjustments */
+  .table td, .table th {
+    padding: 0.8rem 1rem !important; /* Slightly more compact than base */
+    font-size: 0.9rem;
+  }
+
   .stat-card .stat-value {
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: 700;
     color: var(--brand-primary);
     line-height: 1;
+  }
+
+  @media (max-width: 991.98px) {
+    .dash-title { font-size: 1.8rem; }
+    .table th:nth-child(2), .table td:nth-child(2),
+    .table th:nth-child(4), .table td:nth-child(4),
+    .table th:nth-child(5), .table td:nth-child(5) {
+      display: none;
+    }
+  }
+
+  @media (max-width: 767.98px) {
+    .dash-title { font-size: 1.6rem; }
+    .dash-subtitle { font-size: 0.85rem; }
+    .btn-dash { 
+      width: auto !important; /* Override the 100% from base.html if needed */
+      padding: 0.5rem 1.2rem;
+      font-size: 0.9rem;
+    }
+  }
+
+  @media (max-width: 575.98px) {
+    .dash-title { font-size: 1.5rem; text-align: center; }
+    .dash-subtitle { font-size: 0.8rem; text-align: center; }
+    .btn-dash { 
+      display: flex !important;
+      width: 100% !important; 
+      margin-top: 0.5rem;
+    }
+    .table td, .table th {
+      font-size: 0.8rem;
+      padding: 0.6rem 0.8rem !important;
+    }
+    .table thead th {
+      font-size: 0.65rem;
+      padding: 0.6rem 0.8rem !important;
+    }
+    .card-header {
+      padding: 1rem !important;
+    }
+    .card-header h5 {
+      font-size: 0.9rem !important;
+    }
+    .d-flex.justify-content-end {
+      justify-content: flex-start !important;
+      margin-top: 0.5rem;
+    }
+    .stat-card {
+      padding: 1rem;
+    }
+    .stat-card .stat-value {
+      font-size: 1.5rem;
+    }
   }
 </style>
 {% endblock %}

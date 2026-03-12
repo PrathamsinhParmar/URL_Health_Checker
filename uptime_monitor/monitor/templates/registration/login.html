@@ -10,7 +10,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 2rem 1rem;
+    padding: 1rem;
     background: radial-gradient(ellipse 70% 60% at 50% 30%, rgba(99, 102, 241, 0.08) 0%, transparent 70%);
   }
 
@@ -119,4 +119,12 @@
     </div>
   </div>
 </div>
+
+<style>
+  @media (max-width: 575.98px) {
+    .login-card-header, .login-card-body {
+      padding: 1.5rem !important;
+    }
+  }
+</style>
 {% endblock %}

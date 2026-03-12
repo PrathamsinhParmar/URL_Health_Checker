@@ -127,7 +127,7 @@
     /* ─── Main content ─── */
     main {
       flex: 1;
-      padding: 2rem 0;
+      padding: 0; /* Remove global padding to allow hero sections to touch navbar */
     }
 
     /* ─── Cards ─── */
@@ -511,9 +511,92 @@
       border-color: var(--dark-border);
     }
 
+    /* ─── Global Page Hero ─── */
+    .page-hero {
+      padding: 1rem 0 3.5rem;
+      background: 
+        radial-gradient(ellipse 80% 60% at 50% 30%, rgba(255, 102, 0, 0.1) 0%, transparent 70%),
+        var(--dark-bg);
+      border-bottom: 1px solid var(--dark-border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: 
+        linear-gradient(rgba(255, 102, 0, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 102, 0, 0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+    }
+
     ::selection {
       background: var(--brand-primary);
       color: #000000;
+    }
+
+    /* ─── Responsive Adjustments ─── */
+    @media (max-width: 991.98px) {
+      .navbar-nav {
+        padding: 1rem 0;
+      }
+      .navbar-nav .nav-link {
+        padding: 0.75rem 1rem !important;
+      }
+      .btn-nav-cta {
+        margin-top: 0.5rem;
+        display: block;
+        text-align: center;
+      }
+      .navbar-collapse {
+        margin-top: 0.5rem;
+      }
+    }
+
+    @media (max-width: 767.98px) {
+      main {
+        padding: 0 0 1rem;
+      }
+      .display-3 {
+        font-size: 2.5rem;
+      }
+      .display-4 {
+        font-size: 2.2rem;
+      }
+      .display-5 {
+        font-size: 1.8rem;
+      }
+      .stat-card .stat-value {
+        font-size: 1.8rem;
+      }
+      .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+        gap: 1.5rem;
+      }
+      .page-hero {
+        padding: 1.25rem 0 2rem !important;
+      }
+      .info-content {
+        padding: 2rem 0 !important;
+      }
+    }
+
+    @media (max-width: 575.98px) {
+      .container {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+      .btn {
+        width: 100%;
+        margin-bottom: 0.5rem;
+      }
+      .d-flex.gap-2:not(.btn), .d-flex.gap-3:not(.btn) {
+        flex-direction: column;
+      }
     }
   </style>
 
