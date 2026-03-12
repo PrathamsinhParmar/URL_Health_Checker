@@ -307,8 +307,8 @@
 
   // Gradient fill
   const gradient = ctx.createLinearGradient(0, 0, 0, 260);
-  gradient.addColorStop(0, 'rgba(99, 102, 241, 0.25)');
-  gradient.addColorStop(1, 'rgba(99, 102, 241, 0.0)');
+  gradient.addColorStop(0, 'rgba(255, 102, 0, 0.2)');
+  gradient.addColorStop(1, 'rgba(255, 102, 0, 0.0)');
 
   new Chart(ctx, {
     type: 'line',
@@ -317,11 +317,11 @@
       datasets: [{
         label: 'Response Time (ms)',
         data: data,
-        borderColor: '#6366f1',
+        borderColor: '#ff6600',
         backgroundColor: gradient,
         borderWidth: 2,
-        pointBackgroundColor: '#6366f1',
-        pointBorderColor: '#0f0f1a',
+        pointBackgroundColor: '#ff6600',
+        pointBorderColor: '#000000',
         pointBorderWidth: 2,
         pointRadius: 4,
         pointHoverRadius: 6,

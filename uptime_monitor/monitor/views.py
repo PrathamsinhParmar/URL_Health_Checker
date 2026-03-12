@@ -26,12 +26,16 @@ def dashboard(request):
     )
 
     url_data = []
+    active_count = 0
     for mu in monitored_urls:
         uptime_pct = mu.uptime_percentage(hours=24)
         url_data.append((mu, uptime_pct))
+        if mu.is_active and mu.current_status:
+            active_count += 1
 
     context = {
         'monitored_urls': url_data,
+        'active_count': active_count,
     }
     return render(request, 'monitor/dashboard.html', context)
 

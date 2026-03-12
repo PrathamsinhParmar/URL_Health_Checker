@@ -34,12 +34,7 @@
       <div class="col-6 col-sm-3">
         <div class="stat-card">
           <div class="stat-value" style="color: var(--brand-success); -webkit-text-fill-color: var(--brand-success);">
-            {% with count=0 %}
-              {% for mu, _ in monitored_urls %}
-                {% if mu.is_active and mu.current_status %}{% endif %}
-              {% endfor %}
-            {% endwith %}
-            {{ monitored_urls|length }}
+            {{ active_count }}
           </div>
           <div class="stat-label" id="stat-monitored">Active Monitors</div>
         </div>
@@ -194,6 +189,12 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+  }
+  .stat-card .stat-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--brand-primary);
+    line-height: 1;
   }
 </style>
 {% endblock %}
