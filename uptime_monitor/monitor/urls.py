@@ -8,5 +8,6 @@ urlpatterns = [
     path('urls/<int:pk>/edit/', views.edit_url, name='url_edit'),
     path('urls/<int:pk>/delete/', views.delete_url, name='url_delete'),
     path('urls/<int:pk>/', views.url_detail, name='url_detail'),
+    path('profile/', views.profile, name='profile'),
     path('accounts/register/', views.register, name='register'),
 ]

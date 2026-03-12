@@ -32,3 +32,17 @@ class MonitoredURLForm(forms.ModelForm):
                 'URL must start with http:// or https://'
             )
         return url
+
+
+from django.contrib.auth.models import User
+
+class UserUpdateForm(forms.ModelForm):
+    email = forms.EmailField(required=True)
+    
+    class Meta:
+        model = User
+        fields = ['username', 'email']
+        widgets = {
+            'username': forms.TextInput(attrs={'class': 'form-control'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control'}),
+        }

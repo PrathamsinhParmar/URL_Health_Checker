@@ -6,14 +6,36 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 
 from .models import MonitoredURL, CheckLog
-from .forms import MonitoredURLForm
+from .forms import MonitoredURLForm, UserUpdateForm
 
 
 def home(request):
-    """Landing page — redirect authenticated users to dashboard."""
-    if request.user.is_authenticated:
-        return redirect('dashboard')
+    """Landing page."""
     return render(request, 'monitor/home.html')
+
+
+@login_required
+def profile(request):
+    if request.method == 'POST':
+        u_form = UserUpdateForm(request.POST, instance=request.user)
+        if u_form.is_valid():
+            u_form.save()
+            messages.success(request, 'Your profile has been updated!')
+            return redirect('profile')
+    else:
+        u_form = UserUpdateForm(instance=request.user)
+    
+    # Calculate some stats for the profile page
+    monitored_urls = MonitoredURL.objects.filter(user=request.user)
+    total_urls = monitored_urls.count()
+    active_urls = monitored_urls.filter(is_active=True).count()
+    
+    context = {
+        'u_form': u_form,
+        'total_urls': total_urls,
+        'active_urls': active_urls,
+    }
+    return render(request, 'monitor/profile.html', context)
 
 
 @login_required

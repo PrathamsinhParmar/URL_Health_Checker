@@ -450,6 +450,11 @@
     }
 
     .divider { border-color: var(--dark-border); }
+
+    ::selection {
+      background: var(--brand-primary);
+      color: #000000;
+    }
   </style>
 
   {% block extra_head %}{% endblock %}
@@ -480,9 +485,9 @@
               </a>
             </li>
             <li class="nav-item ms-2">
-              <span class="nav-link text-muted" style="-webkit-text-fill-color: unset;">
+              <a class="nav-link {% if request.resolver_match.url_name == 'profile' %}active{% endif %}" href="{% url 'profile' %}" style="-webkit-text-fill-color: unset;">
                 <i class="bi bi-person-circle me-1"></i>{{ user.username }}
-              </span>
+              </a>
             </li>
             <li class="nav-item">
               <form method="post" action="{% url 'logout' %}" class="d-inline">
@@ -583,8 +588,8 @@
         <div>&copy; {% now "Y" %} UptimeChecker. All rights reserved.</div>
         <div class="d-flex gap-4">
           <span>Made for Excellence</span>
-          <a href="#" class="text-muted text-decoration-none">Privacy</a>
-          <a href="#" class="text-muted text-decoration-none">Terms</a>
+          <a href="#" class="text-success text-decoration-none">Privacy</a>
+          <a href="#" class="text-success text-decoration-none">Terms</a>
         </div>
       </div>
     </div>

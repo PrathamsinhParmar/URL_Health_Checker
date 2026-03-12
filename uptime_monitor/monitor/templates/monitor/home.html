@@ -235,14 +235,25 @@
         </p>
 
         <div class="d-flex flex-wrap gap-3">
-          <a href="{% url 'register' %}" class="btn-hero-primary" id="btn-get-started">
-            <i class="bi bi-rocket-takeoff-fill"></i>
-            Get Started Free
-          </a>
-          <a href="{% url 'login' %}" class="btn-hero-secondary" id="btn-login">
-            <i class="bi bi-box-arrow-in-right"></i>
-            Sign In
-          </a>
+          {% if user.is_authenticated %}
+            <a href="{% url 'dashboard' %}" class="btn-hero-primary" id="btn-dashboard">
+              <i class="bi bi-grid-fill"></i>
+              Go to Dashboard
+            </a>
+            <a href="{% url 'url_add' %}" class="btn-hero-secondary" id="btn-add-url">
+              <i class="bi bi-plus-circle-fill"></i>
+              Monitor New URL
+            </a>
+          {% else %}
+            <a href="{% url 'register' %}" class="btn-hero-primary" id="btn-get-started">
+              <i class="bi bi-rocket-takeoff-fill"></i>
+              Get Started Free
+            </a>
+            <a href="{% url 'login' %}" class="btn-hero-secondary" id="btn-login">
+              <i class="bi bi-box-arrow-in-right"></i>
+              Sign In
+            </a>
+          {% endif %}
         </div>
 
         <div class="stats-bar">
