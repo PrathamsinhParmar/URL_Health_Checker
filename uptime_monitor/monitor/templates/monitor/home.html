@@ -1,0 +1,384 @@
+{% extends 'monitor/base.html' %}
+
+{% block title %}UptimeChecker — Monitor Your Websites{% endblock %}
+
+{% block extra_head %}
+<style>
+  .hero-section {
+    min-height: 85vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 30%, rgba(99, 102, 241, 0.15) 0%, transparent 70%),
+      radial-gradient(ellipse 60% 50% at 80% 80%, rgba(6, 182, 212, 0.08) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(99, 102, 241, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(99, 102, 241, 0.05) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(99, 102, 241, 0.1);
+    border: 1px solid rgba(99, 102, 241, 0.3);
+    color: #a5b4fc;
+    padding: 0.35rem 0.9rem;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.03em;
+  }
+
+  .hero-title {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -1.5px;
+    margin-bottom: 1.25rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1.15rem;
+    color: var(--text-secondary);
+    max-width: 540px;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+  }
+
+  .btn-hero-primary {
+    background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
+    color: white;
+    border: none;
+    padding: 0.8rem 2rem;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 1rem;
+    transition: all 0.25s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .btn-hero-primary:hover {
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
+  }
+
+  .btn-hero-secondary {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-primary);
+    border: 1px solid var(--dark-border);
+    padding: 0.8rem 2rem;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.25s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .btn-hero-secondary:hover {
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(99, 102, 241, 0.4);
+    transform: translateY(-2px);
+  }
+
+  /* Live stats bar */
+  .stats-bar {
+    display: flex;
+    gap: 2.5rem;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--dark-border);
+  }
+
+  .stats-bar .stat {
+    text-align: left;
+  }
+
+  .stats-bar .stat-num {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: white;
+    line-height: 1;
+  }
+
+  .stats-bar .stat-desc {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 0.2rem;
+  }
+
+  /* Features section */
+  .features-section {
+    padding: 5rem 0;
+    background: rgba(0,0,0,0.2);
+    border-top: 1px solid var(--dark-border);
+  }
+
+  .feature-card {
+    background: var(--dark-card);
+    border: 1px solid var(--dark-border);
+    border-radius: 20px;
+    padding: 2rem;
+    height: 100%;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--brand-primary), var(--brand-accent));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .feature-card:hover {
+    border-color: rgba(99, 102, 241, 0.4);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+  }
+
+  .feature-card:hover::before { opacity: 1; }
+
+  .feature-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .feature-icon-1 { background: rgba(99, 102, 241, 0.15); color: #a5b4fc; }
+  .feature-icon-2 { background: rgba(16, 185, 129, 0.15); color: #6ee7b7; }
+  .feature-icon-3 { background: rgba(6, 182, 212, 0.15); color: #67e8f9; }
+
+  .feature-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.6rem;
+  }
+
+  .feature-desc {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* Pulse dot animation */
+  .pulse-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--brand-success);
+    display: inline-block;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.4); }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- ─── Hero Section ─── -->
+<section class="hero-section">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="container position-relative">
+    <div class="row align-items-center">
+      <div class="col-lg-7">
+        <div class="hero-badge">
+          <span class="pulse-dot"></span>
+          Real-time Uptime Monitoring
+        </div>
+
+        <h1 class="hero-title">
+          Monitor your websites.<br>
+          <span class="text-gradient">Stay ahead of downtime.</span>
+        </h1>
+
+        <p class="hero-subtitle">
+          UptimeChecker watches your URLs 24/7, tracks response times, and alerts
+          you the moment something goes wrong — so your users never notice the outage before you do.
+        </p>
+
+        <div class="d-flex flex-wrap gap-3">
+          <a href="{% url 'register' %}" class="btn-hero-primary" id="btn-get-started">
+            <i class="bi bi-rocket-takeoff-fill"></i>
+            Get Started Free
+          </a>
+          <a href="{% url 'login' %}" class="btn-hero-secondary" id="btn-login">
+            <i class="bi bi-box-arrow-in-right"></i>
+            Sign In
+          </a>
+        </div>
+
+        <div class="stats-bar">
+          <div class="stat">
+            <div class="stat-num text-gradient">99.9%</div>
+            <div class="stat-desc">Monitoring accuracy</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num text-gradient">5 min</div>
+            <div class="stat-desc">Check interval</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num text-gradient">&lt; 1s</div>
+            <div class="stat-desc">Alert response time</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hero visual (animated status panel) -->
+      <div class="col-lg-5 d-none d-lg-flex justify-content-center">
+        <div style="width: 100%; max-width: 380px;">
+          <div class="card p-3">
+            <div class="d-flex align-items-center justify-content-between mb-3">
+              <span class="fw-700" style="font-weight:700; font-size:0.9rem;">Live Status Board</span>
+              <span class="badge-up">All Systems Operational</span>
+            </div>
+            {% for site in sites %}{% empty %}
+            <div class="d-flex flex-column gap-2" id="demo-sites">
+              {% for item in demo_items %}{% empty %}
+              <!-- Demo rows -->
+              <div class="d-flex align-items-center justify-content-between p-2 rounded-3" style="background:rgba(99,102,241,0.05); border:1px solid var(--dark-border);">
+                <div>
+                  <div style="font-size:0.85rem; font-weight:600;">example.com</div>
+                  <div style="font-size:0.75rem; color:var(--text-muted);">https://example.com</div>
+                </div>
+                <div class="text-end">
+                  <span class="badge-up">Up</span>
+                  <div style="font-size:0.75rem;color:var(--text-muted);margin-top:2px;">128ms</div>
+                </div>
+              </div>
+              <div class="d-flex align-items-center justify-content-between p-2 rounded-3" style="background:rgba(99,102,241,0.05); border:1px solid var(--dark-border);">
+                <div>
+                  <div style="font-size:0.85rem; font-weight:600;">api.myservice.io</div>
+                  <div style="font-size:0.75rem; color:var(--text-muted);">https://api.myservice.io</div>
+                </div>
+                <div class="text-end">
+                  <span class="badge-up">Up</span>
+                  <div style="font-size:0.75rem;color:var(--text-muted);margin-top:2px;">243ms</div>
+                </div>
+              </div>
+              <div class="d-flex align-items-center justify-content-between p-2 rounded-3" style="background:rgba(239,68,68,0.05); border:1px solid rgba(239,68,68,0.2);">
+                <div>
+                  <div style="font-size:0.85rem; font-weight:600;">old-server.internal</div>
+                  <div style="font-size:0.75rem; color:var(--text-muted);">http://old-server.internal</div>
+                </div>
+                <div class="text-end">
+                  <span class="badge-down">Down</span>
+                  <div style="font-size:0.75rem;color:var(--text-muted);margin-top:2px;">timeout</div>
+                </div>
+              </div>
+              <div class="d-flex align-items-center justify-content-between p-2 rounded-3" style="background:rgba(99,102,241,0.05); border:1px solid var(--dark-border);">
+                <div>
+                  <div style="font-size:0.85rem; font-weight:600;">dashboard.app.co</div>
+                  <div style="font-size:0.75rem; color:var(--text-muted);">https://dashboard.app.co</div>
+                </div>
+                <div class="text-end">
+                  <span class="badge-up">Up</span>
+                  <div style="font-size:0.75rem;color:var(--text-muted);margin-top:2px;">89ms</div>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+            {% endfor %}
+            <div class="mt-3 pt-2 border-top" style="border-color: var(--dark-border) !important;">
+              <div style="font-size:0.75rem; color:var(--text-muted);">Last checked: just now · Next check in 4m 38s</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Features Section ─── -->
+<section class="features-section">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="fw-800" style="font-size: 2rem; font-weight: 800; letter-spacing: -0.5px;">
+        Everything you need to <span class="text-gradient">stay informed</span>
+      </h2>
+      <p style="color: var(--text-secondary); max-width: 500px; margin: 0.75rem auto 0;">
+        Simple, powerful monitoring without the complexity of enterprise tools.
+      </p>
+    </div>
+
+    <div class="row g-4">
+      <!-- Feature 1 -->
+      <div class="col-md-4">
+        <div class="feature-card">
+          <div class="feature-icon feature-icon-1">
+            <i class="bi bi-activity"></i>
+          </div>
+          <h3 class="feature-title">Real-Time Checks</h3>
+          <p class="feature-desc">
+            Automatically verifies your URLs every 5 minutes using smart HTTP HEAD/GET checks
+            with timeout detection and full redirect following.
+          </p>
+        </div>
+      </div>
+      <!-- Feature 2 -->
+      <div class="col-md-4">
+        <div class="feature-card">
+          <div class="feature-icon feature-icon-2">
+            <i class="bi bi-bell-fill"></i>
+          </div>
+          <h3 class="feature-title">Instant Alerts</h3>
+          <p class="feature-desc">
+            Get notified immediately via email when a site goes down or recovers.
+            Status-change detection means you only hear about real incidents.
+          </p>
+        </div>
+      </div>
+      <!-- Feature 3 -->
+      <div class="col-md-4">
+        <div class="feature-card">
+          <div class="feature-icon feature-icon-3">
+            <i class="bi bi-graph-up-arrow"></i>
+          </div>
+          <h3 class="feature-title">Uptime Analytics</h3>
+          <p class="feature-desc">
+            Track uptime percentage over 24 hours and 7 days. Visualize response time trends
+            with beautiful interactive charts powered by Chart.js.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

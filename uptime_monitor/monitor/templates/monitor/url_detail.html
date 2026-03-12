@@ -1,0 +1,376 @@
+{% extends 'monitor/base.html' %}
+
+{% block title %}{{ monitored_url.name }} — Detail — UptimeChecker{% endblock %}
+
+{% block extra_head %}
+<style>
+  .detail-hero {
+    padding: 2.5rem 0 1.5rem;
+    border-bottom: 1px solid var(--dark-border);
+    margin-bottom: 2rem;
+  }
+
+  .chart-container {
+    position: relative;
+    height: 260px;
+    width: 100%;
+  }
+
+  .no-data-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(15, 15, 26, 0.85);
+    border-radius: 12px;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    z-index: 5;
+  }
+
+  .log-table-wrapper {
+    max-height: 480px;
+    overflow-y: auto;
+    border-radius: 0 0 16px 16px;
+  }
+
+  .status-hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.6rem 1.4rem;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 1rem;
+  }
+
+  .status-hero-badge.up {
+    background: rgba(16, 185, 129, 0.12);
+    border: 2px solid rgba(16, 185, 129, 0.3);
+    color: var(--brand-success);
+  }
+
+  .status-hero-badge.down {
+    background: rgba(239, 68, 68, 0.12);
+    border: 2px solid rgba(239, 68, 68, 0.3);
+    color: var(--brand-danger);
+  }
+
+  .status-hero-badge.paused {
+    background: rgba(100, 116, 139, 0.12);
+    border: 2px solid rgba(100, 116, 139, 0.3);
+    color: var(--text-muted);
+  }
+
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .info-item {
+    background: var(--dark-card);
+    border: 1px solid var(--dark-border);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+  }
+
+  .info-item-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    margin-bottom: 0.3rem;
+    font-weight: 600;
+  }
+
+  .info-item-value {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    word-break: break-all;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+
+  <!-- Breadcrumb -->
+  <nav aria-label="breadcrumb" class="mb-3">
+    <ol class="breadcrumb" style="background:none; padding:0; margin:0; font-size:0.85rem;">
+      <li class="breadcrumb-item">
+        <a href="{% url 'dashboard' %}" style="color: var(--brand-primary); text-decoration:none;">
+          <i class="bi bi-grid me-1"></i>Dashboard
+        </a>
+      </li>
+      <li class="breadcrumb-item active" style="color: var(--text-muted);">{{ monitored_url.name }}</li>
+    </ol>
+  </nav>
+
+  <!-- Page Header -->
+  <div class="d-flex flex-wrap align-items-start justify-content-between gap-3 mb-4">
+    <div>
+      <div class="d-flex align-items-center gap-3 mb-2 flex-wrap">
+        <h1 style="font-size: 2rem; font-weight: 800; margin: 0; letter-spacing: -0.5px;">
+          {{ monitored_url.name }}
+        </h1>
+        {% if not monitored_url.is_active %}
+          <span class="status-hero-badge paused">
+            <i class="bi bi-pause-circle-fill"></i> Paused
+          </span>
+        {% elif monitored_url.current_status %}
+          <span class="status-hero-badge up">
+            <i class="bi bi-check-circle-fill"></i> Operational
+          </span>
+        {% else %}
+          <span class="status-hero-badge down">
+            <i class="bi bi-x-circle-fill"></i> Down
+          </span>
+        {% endif %}
+      </div>
+      <a href="{{ monitored_url.url }}" target="_blank" rel="noopener"
+         style="color: var(--text-secondary); text-decoration:none; font-family: monospace; font-size: 0.9rem;">
+        {{ monitored_url.url }}&nbsp;<i class="bi bi-box-arrow-up-right" style="font-size:0.75rem;"></i>
+      </a>
+    </div>
+    <div class="d-flex gap-2">
+      <a href="{% url 'url_edit' monitored_url.pk %}" class="btn btn-outline-primary" id="btn-edit-detail">
+        <i class="bi bi-pencil me-1"></i>Edit
+      </a>
+      <a href="{% url 'url_delete' monitored_url.pk %}" class="btn btn-outline-danger" id="btn-delete-detail">
+        <i class="bi bi-trash me-1"></i>Delete
+      </a>
+    </div>
+  </div>
+
+  <!-- Info Grid -->
+  <div class="info-grid">
+    <div class="info-item">
+      <div class="info-item-label">Monitoring Since</div>
+      <div class="info-item-value">{{ monitored_url.created_at|date:"N j, Y" }}</div>
+    </div>
+    <div class="info-item">
+      <div class="info-item-label">Last Checked</div>
+      <div class="info-item-value">
+        {% if monitored_url.last_checked %}{{ monitored_url.last_checked|date:"N j, Y H:i:s" }} UTC{% else %}Never{% endif %}
+      </div>
+    </div>
+    <div class="info-item">
+      <div class="info-item-label">Current Response</div>
+      <div class="info-item-value">
+        {% if monitored_url.current_response_time is not None %}
+          {{ monitored_url.current_response_time|floatformat:3 }}s
+        {% else %}—{% endif %}
+      </div>
+    </div>
+    <div class="info-item">
+      <div class="info-item-label">Monitoring Status</div>
+      <div class="info-item-value">
+        {% if monitored_url.is_active %}
+          <span style="color: var(--brand-success);">Active</span>
+        {% else %}
+          <span style="color: var(--text-muted);">Paused</span>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <!-- Uptime Stats -->
+  <div class="row g-3 mb-4">
+    <div class="col-md-6">
+      <div class="stat-card">
+        {% if uptime_24h is not None %}
+          <div class="stat-value">{{ uptime_24h }}%</div>
+        {% else %}
+          <div class="stat-value" style="font-size: 2rem;">—</div>
+        {% endif %}
+        <div class="stat-label">Uptime — Last 24 Hours</div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="stat-card">
+        {% if uptime_7d is not None %}
+          <div class="stat-value">{{ uptime_7d }}%</div>
+        {% else %}
+          <div class="stat-value" style="font-size: 2rem;">—</div>
+        {% endif %}
+        <div class="stat-label">Uptime — Last 7 Days</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Response Time Chart -->
+  <div class="card mb-4">
+    <div class="card-header d-flex align-items-center justify-content-between">
+      <h5 class="mb-0" style="font-weight: 600; font-size: 1rem;">
+        <i class="bi bi-graph-up me-2" style="color: var(--brand-primary);"></i>Response Time (last 50 checks)
+      </h5>
+      <small style="color: var(--text-muted);">in milliseconds</small>
+    </div>
+    <div class="card-body">
+      <div class="chart-container" id="chart-wrapper">
+        <canvas id="responseChart"></canvas>
+        {% if not has_logs %}
+          <div class="no-data-overlay" id="no-data-overlay">
+            <i class="bi bi-bar-chart-line" style="font-size: 2.5rem; opacity: 0.3; margin-bottom: 0.75rem;"></i>
+            <p class="mb-0">No data yet — run <code>python manage.py check_urls</code> to start</p>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <!-- Check Logs Table -->
+  <div class="card mb-4">
+    <div class="card-header">
+      <h5 class="mb-0" style="font-weight: 600; font-size: 1rem;">
+        <i class="bi bi-clock-history me-2" style="color: var(--brand-primary);"></i>Recent Check Logs
+        <span style="color: var(--text-muted); font-size:0.8rem; font-weight:400;">(last 100)</span>
+      </h5>
+    </div>
+    <div class="log-table-wrapper">
+      <table class="table mb-0" id="logs-table">
+        <thead>
+          <tr>
+            <th>Timestamp</th>
+            <th>Status Code</th>
+            <th>Response Time</th>
+            <th>Result</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for log in logs %}
+          <tr>
+            <td style="font-size: 0.85rem; color: var(--text-secondary); font-family: monospace;">
+              {{ log.timestamp|date:"Y-m-d H:i:s" }} UTC
+            </td>
+            <td>
+              {% if log.status_code %}
+                <code style="color: {% if log.is_up %}var(--brand-success){% else %}var(--brand-danger){% endif %};">
+                  {{ log.status_code }}
+                </code>
+              {% else %}
+                <span style="color: var(--text-muted);">—</span>
+              {% endif %}
+            </td>
+            <td style="font-size: 0.85rem;">
+              {{ log.response_time|floatformat:3 }}s
+              <span style="color: var(--text-muted);">({{ log.response_time|floatformat:0 }}00ms approx)</span>
+            </td>
+            <td>
+              {% if log.is_up %}
+                <span class="badge-up"><i class="bi bi-circle-fill me-1" style="font-size:0.5rem;"></i>Up</span>
+              {% else %}
+                <span class="badge-down"><i class="bi bi-x-circle-fill me-1" style="font-size:0.75rem;"></i>Down</span>
+              {% endif %}
+            </td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="4" class="text-center py-5" style="color: var(--text-muted);">
+              <i class="bi bi-inbox" style="font-size: 2rem; display:block; margin-bottom:0.5rem; opacity:0.3;"></i>
+              No check logs recorded yet
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Back Link -->
+  <a href="{% url 'dashboard' %}" class="btn btn-outline-secondary" id="btn-back-dashboard">
+    <i class="bi bi-arrow-left me-2"></i>Back to Dashboard
+  </a>
+
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+<script>
+(function () {
+  const chartData = {{ chart_data_json|safe }};
+  const hasLogs = {{ has_logs|yesno:"true,false" }};
+
+  if (!hasLogs) return;  // overlay is already shown
+
+  const labels = chartData.map(d => d.timestamp);
+  const data   = chartData.map(d => d.response_time);
+
+  const ctx = document.getElementById('responseChart').getContext('2d');
+
+  // Gradient fill
+  const gradient = ctx.createLinearGradient(0, 0, 0, 260);
+  gradient.addColorStop(0, 'rgba(99, 102, 241, 0.25)');
+  gradient.addColorStop(1, 'rgba(99, 102, 241, 0.0)');
+
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: labels,
+      datasets: [{
+        label: 'Response Time (ms)',
+        data: data,
+        borderColor: '#6366f1',
+        backgroundColor: gradient,
+        borderWidth: 2,
+        pointBackgroundColor: '#6366f1',
+        pointBorderColor: '#0f0f1a',
+        pointBorderWidth: 2,
+        pointRadius: 4,
+        pointHoverRadius: 6,
+        tension: 0.3,
+        fill: true,
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: 'rgba(26, 26, 46, 0.95)',
+          titleColor: '#e2e8f0',
+          bodyColor: '#94a3b8',
+          borderColor: '#2d2d4a',
+          borderWidth: 1,
+          padding: 12,
+          callbacks: {
+            label: function(ctx) {
+              return '  ' + ctx.parsed.y + ' ms';
+            }
+          }
+        }
+      },
+      scales: {
+        x: {
+          grid: { color: 'rgba(255,255,255,0.04)' },
+          ticks: {
+            color: '#64748b',
+            maxTicksLimit: 8,
+            font: { family: 'Inter', size: 11 },
+            maxRotation: 30,
+          }
+        },
+        y: {
+          beginAtZero: true,
+          grid: { color: 'rgba(255,255,255,0.04)' },
+          ticks: {
+            color: '#64748b',
+            font: { family: 'Inter', size: 11 },
+            callback: function(v) { return v + 'ms'; }
+          }
+        }
+      }
+    }
+  });
+})();
+</script>
+{% endblock %}
