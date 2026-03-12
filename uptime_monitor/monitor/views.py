@@ -173,3 +173,33 @@ def register(request):
 
     context = {'form': form}
     return render(request, 'monitor/register.html', context)
+
+
+def public_status(request):
+    """Placeholder for public status page."""
+    return render(request, 'monitor/public_status.html')
+
+
+def api_docs(request):
+    """Placeholder for API documentation page."""
+    return render(request, 'monitor/api_docs.html')
+
+
+def integration_guide(request):
+    """Placeholder for integration guide page."""
+    return render(request, 'monitor/integration_guide.html')
+
+
+def contact_us(request):
+    """Placeholder for contact us page."""
+    return render(request, 'monitor/contact.html')
+
+
+def privacy_policy(request):
+    """Placeholder for privacy policy page."""
+    return render(request, 'monitor/privacy.html')
+
+
+def terms_of_service(request):
+    """Placeholder for terms of service page."""
+    return render(request, 'monitor/terms.html')

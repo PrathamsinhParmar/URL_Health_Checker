@@ -30,24 +30,41 @@
   }
 
   .login-logo {
-    width: 60px; height: 60px;
+    width: 60px;
+    height: 60px;
     border-radius: 16px;
     background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.5rem; color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: white;
     margin: 0 auto 1.25rem;
   }
 
-  .login-card-body { padding: 2rem 2.5rem 2.5rem; }
+  .login-card-body {
+    padding: 2rem 2.5rem 2.5rem;
+  }
 
-  .field-wrapper { margin-bottom: 1.25rem; }
+  .field-wrapper {
+    margin-bottom: 1.25rem;
+  }
 
   .divider-text {
-    display: flex; align-items: center; gap: 0.75rem;
-    color: var(--text-muted); font-size: 0.85rem; margin: 1.25rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    margin: 1.25rem 0;
   }
-  .divider-text::before, .divider-text::after {
-    content: ''; flex: 1; height: 1px; background: var(--dark-border);
+
+  .divider-text::before,
+  .divider-text::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--dark-border);
   }
 </style>
 {% endblock %}
@@ -62,10 +79,10 @@
     </div>
     <div class="login-card-body">
       {% if form.non_field_errors %}
-        <div class="alert alert-danger d-flex gap-2 align-items-center mb-3">
-          <i class="bi bi-exclamation-triangle-fill flex-shrink-0"></i>
-          <div>{% for e in form.non_field_errors %}{{ e }}{% endfor %}</div>
-        </div>
+      <div class="alert alert-danger d-flex gap-2 align-items-center mb-3">
+        <i class="bi bi-exclamation-triangle-fill flex-shrink-0"></i>
+        <div>{% for e in form.non_field_errors %}{{ e }}{% endfor %}</div>
+      </div>
       {% endif %}
       <form method="post" id="login-form">
         {% csrf_token %}
@@ -73,13 +90,20 @@
           <label for="{{ form.username.id_for_label }}" class="form-label">Username</label>
           {{ form.username|add_class:"form-control"|attr:"placeholder:Your username"|attr:"autofocus:true" }}
         </div>
-        <div class="field-wrapper">
+        <div class="field-wrapper position-relative">
           <label for="{{ form.password.id_for_label }}" class="form-label">Password</label>
-          {{ form.password|add_class:"form-control"|attr:"placeholder:Your password" }}
+          <div class="input-group">
+            {{ form.password|add_class:"form-control"|attr:"placeholder:Your password" }}
+            <button class="btn btn-outline-secondary" type="button"
+              onclick="togglePassword(this, '{{ form.password.id_for_label }}')"
+              style="border-color: var(--dark-border); border-left: none;">
+              <i class="bi bi-eye"></i>
+            </button>
+          </div>
         </div>
         <input type="hidden" name="next" value="{{ next }}">
         <button type="submit" class="btn btn-primary w-100 mt-1" id="btn-login"
-                style="padding: 0.75rem; font-size: 1rem; font-weight: 700;">
+          style="padding: 0.75rem; font-size: 1rem; font-weight: 700;">
           <i class="bi bi-box-arrow-in-right me-2"></i>Sign In
         </button>
       </form>

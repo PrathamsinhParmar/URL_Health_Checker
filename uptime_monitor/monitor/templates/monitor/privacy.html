@@ -1,0 +1,122 @@
+{% extends 'monitor/base.html' %}
+
+{% block title %}Privacy Policy — UptimeChecker{% endblock %}
+
+{% block extra_head %}
+<style>
+  .page-hero {
+    padding: 6rem 0 4rem;
+    background: 
+      radial-gradient(ellipse 80% 60% at 50% 30%, rgba(255, 102, 0, 0.1) 0%, transparent 70%),
+      var(--dark-bg);
+    border-bottom: 1px solid var(--dark-border);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .page-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: 
+      linear-gradient(rgba(255, 102, 0, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 102, 0, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+  }
+
+  .info-content {
+    padding: 5rem 0;
+  }
+
+  .policy-section {
+    margin-bottom: 4rem;
+  }
+
+  .policy-section h2 {
+    color: var(--brand-primary);
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .policy-section p, .policy-section li {
+    color: var(--text-secondary);
+    line-height: 1.8;
+  }
+
+  .policy-section ul {
+    padding-left: 1.25rem;
+  }
+
+  .policy-section li {
+    margin-bottom: 0.75rem;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="page-hero">
+    <div class="container position-relative">
+        <nav aria-label="breadcrumb" class="mb-3">
+            <ol class="breadcrumb mb-0" style="background: none; padding: 0;">
+                <li class="breadcrumb-item"><a href="{% url 'home' %}" class="text-secondary text-decoration-none">Home</a></li>
+                <li class="breadcrumb-item active text-primary" aria-current="page">Privacy Policy</li>
+            </ol>
+        </nav>
+        <h1 class="display-3 fw-bold text-gradient mb-3">Privacy Policy</h1>
+        <p class="lead mb-0" style="color: var(--text-muted);">Last Updated: March 2026 — Version 1.2</p>
+    </div>
+</div>
+
+<div class="info-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="policy-section">
+                    <h2><i class="bi bi-shield-lock"></i> 1. Information We Collect</h2>
+                    <p>We collect information to provide better services to all our users. This transparency is key to how we maintain UptimeChecker as a reliable platform.</p>
+                    <ul>
+                        <li><strong>Account Information:</strong> We store your username, email address, and encrypted password credentials provided during registration.</li>
+                        <li><strong>Monitoring Data:</strong> We store metadata about the URLs you add, including check history, response times, and status changes.</li>
+                        <li><strong>Usage Analytics:</strong> We may collect data on how often you log in and which features you interact with to improve the service quality.</li>
+                    </ul>
+                </div>
+
+                <div class="policy-section">
+                    <h2><i class="bi bi-gear-wide-connected"></i> 2. How We Use Information</h2>
+                    <p>The primary purpose of collecting data is to operate and improve the Monitoring Service we provide to you.</p>
+                    <ul>
+                        <li>To maintain the core heartbeat of the service — automatically checking your URLs.</li>
+                        <li>To trigger alerts via your preferred notification channels when downtime is detected.</li>
+                        <li>To provide technical support and troubleshoot issues specific to your profile.</li>
+                    </ul>
+                </div>
+
+                <div class="info-section mb-5">
+                    <h2><i class="bi bi-node-plus"></i> 3. Data Security & Integrity</h2>
+                    <p>UptimeChecker utilizes industry-standard encryption protocols (SSL/TLS) for data in transit and robust hashing algorithms for sensitive data at rest. We never share your private monitoring data with third parties.</p>
+                </div>
+
+                <div class="info-section">
+                    <h2><i class="bi bi-envelope"></i> 4. Contact Our Team</h2>
+                    <p>If you have any questions or concerns regarding this policy, please don't hesitate to reach out to our privacy team at <a href="mailto:privacy@uptimechecker.com" class="text-primary text-decoration-none fw-bold">privacy@uptimechecker.com</a>.</p>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 d-none d-lg-block">
+                <div class="card p-4 sticky-top" style="top: 100px;">
+                    <h5 class="mb-3 fw-bold">Quick Links</h5>
+                    <ul class="list-unstyled mb-0">
+                        <li class="mb-2"><a href="{% url 'terms' %}" class="text-secondary text-decoration-none">Terms of Service</a></li>
+                        <li class="mb-2"><a href="{% url 'contact' %}" class="text-secondary text-decoration-none">Contact Support</a></li>
+                        <li class="mb-2"><a href="{% url 'api_docs' %}" class="text-secondary text-decoration-none">API Docs</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

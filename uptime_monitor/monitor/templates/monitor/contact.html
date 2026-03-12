@@ -1,0 +1,133 @@
+{% extends 'monitor/base.html' %}
+
+{% block title %}Contact Us — UptimeChecker{% endblock %}
+
+{% block extra_head %}
+<style>
+  .page-hero {
+    padding: 6rem 0 4rem;
+    background: 
+      radial-gradient(ellipse 80% 60% at 50% 30%, rgba(255, 102, 0, 0.1) 0%, transparent 70%),
+      var(--dark-bg);
+    border-bottom: 1px solid var(--dark-border);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .page-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: 
+      linear-gradient(rgba(255, 102, 0, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 102, 0, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+  }
+
+  .info-content {
+    padding: 5rem 0;
+  }
+  
+  .contact-method {
+    background: var(--dark-card);
+    border: 1px solid var(--dark-border);
+    border-radius: 16px;
+    padding: 2rem;
+    height: 100%;
+    transition: all 0.3s ease;
+  }
+  
+  .contact-method:hover {
+    border-color: var(--brand-primary);
+    transform: translateY(-5px);
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="page-hero">
+    <div class="container position-relative">
+        <nav aria-label="breadcrumb" class="mb-3">
+            <ol class="breadcrumb mb-0" style="background: none; padding: 0;">
+                <li class="breadcrumb-item"><a href="{% url 'home' %}" class="text-secondary text-decoration-none">Home</a></li>
+                <li class="breadcrumb-item active text-primary" aria-current="page">Contact Us</li>
+            </ol>
+        </nav>
+        <h1 class="display-3 fw-bold text-gradient mb-3">Get in Touch</h1>
+        <p class="lead mb-0" style="color: var(--text-muted);">Have questions? We're here to help you stay operational.</p>
+    </div>
+</div>
+
+<div class="info-content">
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-lg-7">
+                <div class="card p-4 p-md-5">
+                    <h2 class="h3 fw-bold mb-4">Send us a message</h2>
+                    <form>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Full Name</label>
+                                <input type="text" class="form-control" placeholder="John Doe">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Email Address</label>
+                                <input type="email" class="form-control" placeholder="john@example.com">
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">Subject</label>
+                                <select class="form-select">
+                                    <option selected>General Inquiry</option>
+                                    <option>Technical Support</option>
+                                    <option>Billing Question</option>
+                                    <option>Feature Request</option>
+                                </select>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">Message</label>
+                                <textarea class="form-control" rows="5" placeholder="How can we help you?"></textarea>
+                            </div>
+                            <div class="col-12 mt-4">
+                                <button type="submit" class="btn btn-primary px-5 py-3 fw-bold">
+                                    <i class="bi bi-send-fill me-2"></i>Send Message
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="col-lg-5">
+                <div class="row g-4">
+                    <div class="col-12">
+                        <div class="contact-method">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="p-3 rounded-circle me-3" style="background: rgba(255,102,0,0.1); color: var(--brand-primary);">
+                                    <i class="bi bi-envelope-at h4 mb-0"></i>
+                                </div>
+                                <h3 class="h5 mb-0 fw-bold">Email Support</h3>
+                            </div>
+                            <p class="text-secondary small mb-3">Expert help for complex integrations and critical issues.</p>
+                            <a href="mailto:support@uptimechecker.com" class="text-primary fw-bold text-decoration-none h6 mb-0">support@uptimechecker.com</a>
+                        </div>
+                    </div>
+                    
+                    <div class="col-12">
+                        <div class="contact-method">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="p-3 rounded-circle me-3" style="background: rgba(255,102,0,0.1); color: var(--brand-primary);">
+                                    <i class="bi bi-chat-text h4 mb-0"></i>
+                                </div>
+                                <h3 class="h5 mb-0 fw-bold">Community Discord</h3>
+                            </div>
+                            <p class="text-secondary small mb-3">Join other developers and get quick community support.</p>
+                            <a href="#" class="btn btn-sm btn-outline-secondary fw-bold">Join Community</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

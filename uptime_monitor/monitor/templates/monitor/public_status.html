@@ -1,0 +1,104 @@
+{% extends 'monitor/base.html' %}
+
+{% block title %}Public Status Page — UptimeChecker{% endblock %}
+
+{% block extra_head %}
+<style>
+  .page-hero {
+    padding: 6rem 0 4rem;
+    background: 
+      radial-gradient(ellipse 80% 60% at 50% 30%, rgba(255, 102, 0, 0.1) 0%, transparent 70%),
+      var(--dark-bg);
+    border-bottom: 1px solid var(--dark-border);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .page-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: 
+      linear-gradient(rgba(255, 102, 0, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 102, 0, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+  }
+
+  .info-content {
+    padding: 5rem 0;
+  }
+
+  .feature-box {
+    background: var(--dark-card);
+    border: 1px solid var(--dark-border);
+    border-radius: 16px;
+    padding: 2rem;
+    transition: all 0.3s ease;
+  }
+
+  .feature-box:hover {
+    border-color: var(--brand-success);
+    transform: translateY(-5px);
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="page-hero">
+    <div class="container position-relative text-center">
+        <nav aria-label="breadcrumb" class="d-flex justify-content-center mb-3">
+            <ol class="breadcrumb mb-0" style="background: none; padding: 0;">
+                <li class="breadcrumb-item"><a href="{% url 'home' %}" class="text-secondary text-decoration-none">Home</a></li>
+                <li class="breadcrumb-item active text-primary" aria-current="page">Status Pages</li>
+            </ol>
+        </nav>
+        <h1 class="display-3 fw-bold text-gradient mb-3">Public Status Pages</h1>
+        <p class="lead mb-0 mx-auto" style="color: var(--text-muted); max-width: 600px;">Build trust with transparency. Share your uptime metrics with your customers automatically.</p>
+    </div>
+</div>
+
+<div class="info-content">
+    <div class="container">
+        <div class="row g-5 align-items-center mb-5">
+            <div class="col-lg-6">
+                <h2 class="display-5 fw-bold mb-4">A beautiful home for your <span class="text-success">transparency</span></h2>
+                <p class="text-secondary mb-4">UptimeChecker status pages are designed to be clear, professional, and reliable. They work even when your own infrastructure is having a bad day.</p>
+                <div class="row g-3">
+                    <div class="col-sm-6">
+                        <div class="d-flex align-items-center gap-2">
+                            <i class="bi bi-check-circle-fill text-success"></i>
+                            <span class="text-secondary">Custom Branding</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="d-flex align-items-center gap-2">
+                            <i class="bi bi-check-circle-fill text-success"></i>
+                            <span class="text-secondary">Historical Uptime</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="d-flex align-items-center gap-2">
+                            <i class="bi bi-check-circle-fill text-success"></i>
+                            <span class="text-secondary">Incident Reports</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="d-flex align-items-center gap-2">
+                            <i class="bi bi-check-circle-fill text-success"></i>
+                            <span class="text-secondary">Custom Domains</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="feature-box text-center p-5" style="border-color: var(--brand-success) !important;">
+                    <i class="bi bi-shield-check display-1 text-success mb-4"></i>
+                    <h3 class="h4 fw-bold mb-2">Operational</h3>
+                    <p class="text-muted small">All systems are functioning normally.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -10,4 +10,10 @@ urlpatterns = [
     path('urls/<int:pk>/', views.url_detail, name='url_detail'),
     path('profile/', views.profile, name='profile'),
     path('accounts/register/', views.register, name='register'),
+    path('privacy/', views.privacy_policy, name='privacy'),
+    path('terms/', views.terms_of_service, name='terms'),
+    path('contact/', views.contact_us, name='contact'),
+    path('api-docs/', views.api_docs, name='api_docs'),
+    path('integration-guide/', views.integration_guide, name='integration_guide'),
+    path('public-status/', views.public_status, name='public_status'),
 ]

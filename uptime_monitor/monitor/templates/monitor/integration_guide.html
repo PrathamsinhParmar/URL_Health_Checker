@@ -1,0 +1,111 @@
+{% extends 'monitor/base.html' %}
+
+{% block title %}Integration Guide — UptimeChecker{% endblock %}
+
+{% block extra_head %}
+<style>
+  .page-hero {
+    padding: 6rem 0 4rem;
+    background: 
+      radial-gradient(ellipse 80% 60% at 50% 30%, rgba(255, 102, 0, 0.1) 0%, transparent 70%),
+      var(--dark-bg);
+    border-bottom: 1px solid var(--dark-border);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .page-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: 
+      linear-gradient(rgba(255, 102, 0, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 102, 0, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+  }
+
+  .info-content {
+    padding: 5rem 0;
+  }
+
+  .integration-card {
+    background: var(--dark-card);
+    border: 1px solid var(--dark-border);
+    border-radius: 20px;
+    padding: 2.5rem;
+    height: 100%;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .integration-card:hover {
+    border-color: var(--brand-primary);
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+  }
+  
+  .integration-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--brand-primary);
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="page-hero">
+    <div class="container position-relative">
+        <nav aria-label="breadcrumb" class="mb-3">
+            <ol class="breadcrumb mb-0" style="background: none; padding: 0;">
+                <li class="breadcrumb-item"><a href="{% url 'home' %}" class="text-secondary text-decoration-none">Home</a></li>
+                <li class="breadcrumb-item active text-primary" aria-current="page">Integrations</li>
+            </ol>
+        </nav>
+        <h1 class="display-3 fw-bold text-gradient mb-3">Integrations</h1>
+        <p class="lead mb-0" style="color: var(--text-muted);">Connect your stack and get notified everywhere.</p>
+    </div>
+</div>
+
+<div class="info-content">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-4">
+                <div class="integration-card">
+                    <i class="bi bi-slack integration-icon"></i>
+                    <h3 class="h4 fw-bold mb-3">Slack</h3>
+                    <p class="text-secondary small flex-grow-1">Streamline your incident response by routing uptime alerts directly to your team's Slack channels using incoming webhooks.</p>
+                    <a href="#" class="btn btn-outline-primary fw-bold mt-3">Connect Slack</a>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="integration-card">
+                    <i class="bi bi-discord integration-icon"></i>
+                    <h3 class="h4 fw-bold mb-3">Discord</h3>
+                    <p class="text-secondary small flex-grow-1">Keep your community and developers informed. Post automatic status updates to your Discord server via customizable hooks.</p>
+                    <a href="#" class="btn btn-outline-primary fw-bold mt-3">Connect Discord</a>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="integration-card">
+                    <i class="bi bi-code-slash integration-icon"></i>
+                    <h3 class="h4 fw-bold mb-3">Webhooks</h3>
+                    <p class="text-secondary small flex-grow-1">The ultimate flexibility. Trigger custom HTTP callbacks to your own internal tools or server-side scripts on status changes.</p>
+                    <a href="#" class="btn btn-outline-primary fw-bold mt-3">Configure Hooks</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mt-5 pt-5">
+            <div class="card p-5 text-center">
+                <h2 class="h3 fw-bold mb-3">Need a custom integration?</h2>
+                <p class="text-secondary mx-auto mb-4" style="max-width: 600px;">Our API is built for developers. If you can't find the tool you need here, you can build a custom connector in minutes using our REST documentation.</p>
+                <a href="{% url 'api_docs' %}" class="btn btn-primary px-4 py-2 fw-bold">View API Docs</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

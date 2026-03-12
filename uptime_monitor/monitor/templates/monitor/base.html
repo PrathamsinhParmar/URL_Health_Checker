@@ -1,34 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="UptimeChecker — Monitor your websites and stay ahead of downtime. Real-time uptime monitoring with instant alerts.">
+  <meta name="description"
+    content="UptimeChecker — Monitor your websites and stay ahead of downtime. Real-time uptime monitoring with instant alerts.">
   <title>{% block title %}UptimeChecker{% endblock %}</title>
 
   <!-- Bootstrap 5 CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <!-- Bootstrap Icons -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">  <!-- Google Fonts: Figtree -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <!-- Google Fonts: Figtree -->
   <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;700;800&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --brand-primary: #ff6600;      /* Dark Orange */
-      --brand-secondary: #e65c00;    /* Deeper Orange */
-      --brand-accent: #ff8c00;       /* Lighter Accent Orange */
+      --brand-primary: #ff6600;
+      /* Dark Orange */
+      --brand-secondary: #e65c00;
+      /* Deeper Orange */
+      --brand-accent: #ff8c00;
+      /* Lighter Accent Orange */
       --brand-success: #10b981;
       --brand-danger: #ef4444;
       --brand-warning: #f59e0b;
-      --dark-bg: #0a0a0a;            /* Pure Black Background */
-      --dark-card: #101010;          /* Rich Near-Black Card */
-      --dark-border: #1a1a1a;        /* Subtle Border */
+      --dark-bg: #0a0a0a;
+      /* Pure Black Background */
+      --dark-card: #101010;
+      /* Rich Near-Black Card */
+      --dark-border: #1a1a1a;
+      /* Subtle Border */
       --text-primary: #ffffff;
       --text-secondary: #a3a3a3;
       --text-muted: #666666;
     }
 
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
     body {
       font-family: 'Figtree', sans-serif;
@@ -37,12 +48,26 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      font-weight: 300; /* Light 300 for body text as requested */
+      font-weight: 300;
+      /* Light 300 for body text as requested */
     }
 
-    h1, h2, h3, h4, h5, h6, .fw-700, .fw-800 { font-weight: 700; }
-    strong, b { font-weight: 700; }
-    
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    .fw-700,
+    .fw-800 {
+      font-weight: 700;
+    }
+
+    strong,
+    b {
+      font-weight: 700;
+    }
+
     /* ─── Navbar ─── */
     .navbar {
       background: rgba(0, 0, 0, 0.95) !important;
@@ -63,7 +88,8 @@
 
     .navbar-nav .nav-link {
       color: var(--text-secondary) !important;
-      font-weight: 400; /* Regular for links */
+      font-weight: 400;
+      /* Regular for links */
       padding: 0.5rem 1rem !important;
       border-radius: 8px;
       transition: all 0.2s ease;
@@ -82,7 +108,8 @@
 
     .btn-nav-cta {
       background: var(--brand-primary);
-      color: #000000 !important; /* Black text on orange for high contrast */
+      color: #000000 !important;
+      /* Black text on orange for high contrast */
       border-radius: 8px;
       padding: 0.4rem 1.2rem !important;
       font-weight: 700;
@@ -98,7 +125,10 @@
     }
 
     /* ─── Main content ─── */
-    main { flex: 1; padding: 2rem 0; }
+    main {
+      flex: 1;
+      padding: 2rem 0;
+    }
 
     /* ─── Cards ─── */
     .card {
@@ -117,7 +147,8 @@
       border-bottom: 1px solid var(--dark-border);
       border-radius: 16px 16px 0 0 !important;
       padding: 1.25rem 1.5rem;
-      color: var(--brand-primary) !important; /* Header text in Orange */
+      color: var(--brand-primary) !important;
+      /* Header text in Orange */
       font-weight: 500;
       text-transform: uppercase;
       letter-spacing: 0.05em;
@@ -183,30 +214,36 @@
       border-color: var(--dark-border) !important;
     }
 
-    .table td, .table th {
+    .table td,
+    .table th {
       background-color: transparent !important;
       color: inherit !important;
       border-bottom-color: var(--dark-border) !important;
-      padding: 1rem 1rem !important; /* Increased vertical padding */
+      padding: 1rem 1rem !important;
+      /* Increased vertical padding */
       vertical-align: middle;
-      font-weight: 300; /* Body of table Figtree Light */
+      font-weight: 300;
+      /* Body of table Figtree Light */
     }
 
-    .table th:first-child, 
+    .table th:first-child,
     .table td:first-child {
-      padding-left: 1.3rem !important; /* Extra space from the left border */
+      padding-left: 1.3rem !important;
+      /* Extra space from the left border */
     }
 
-    .table th:last-child, 
+    .table th:last-child,
     .table td:last-child {
-      padding-right: 1rem !important; /* Extra space from the right border */
+      padding-right: 1rem !important;
+      /* Extra space from the right border */
     }
 
     .table thead th {
       background: rgba(255, 102, 0, 0.05) !important;
       color: var(--brand-primary) !important;
       font-size: 0.75rem;
-      font-weight: 700; /* Header Figtree Bold */
+      font-weight: 700;
+      /* Header Figtree Bold */
       text-transform: uppercase;
       letter-spacing: 0.1em;
       padding: 1rem !important;
@@ -217,7 +254,9 @@
     }
 
     /* ─── Badges ─── */
-    .badge-up, .badge-down, .badge-paused {
+    .badge-up,
+    .badge-down,
+    .badge-paused {
       display: inline-flex;
       align-items: center;
       gap: 0.4rem;
@@ -247,7 +286,8 @@
     }
 
     /* ─── Forms ─── */
-    .form-control, .form-select {
+    .form-control,
+    .form-select {
       background: #050505;
       border: 1px solid var(--dark-border);
       color: var(--text-primary);
@@ -257,25 +297,31 @@
       font-family: 'Figtree', sans-serif;
     }
 
-    .form-control:focus, .form-select:focus {
+    .form-control:focus,
+    .form-select:focus {
       background: #080808;
       border-color: var(--brand-primary);
       color: var(--text-primary);
       box-shadow: 0 0 0 3px rgba(255, 102, 0, 0.1);
     }
 
-    .form-control::placeholder { color: var(--text-muted); }
+    .form-control::placeholder {
+      color: var(--text-muted);
+    }
 
     .form-label {
       color: var(--text-secondary);
-      font-weight: 500; /* Medium for subheadings/labels */
+      font-weight: 500;
+      /* Medium for subheadings/labels */
       font-size: 0.85rem;
       text-transform: uppercase;
       letter-spacing: 0.05em;
       margin-bottom: 0.5rem;
     }
 
-    .invalid-feedback { font-size: 0.8rem; }
+    .invalid-feedback {
+      font-size: 0.8rem;
+    }
 
     /* ─── Messages / Alerts ─── */
     .alert {
@@ -321,12 +367,13 @@
     .stat-card:hover {
       border-color: rgba(255, 102, 0, 0.4);
       transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
     }
 
     .stat-card .stat-value {
       font-size: 2.2rem;
-      font-weight: 700; /* Bold for emphasis */
+      font-weight: 700;
+      /* Bold for emphasis */
       color: var(--brand-primary);
       line-height: 1;
     }
@@ -341,7 +388,9 @@
     }
 
     /* ─── Row-muted for paused URLs ─── */
-    .row-paused { opacity: 0.5; }
+    .row-paused {
+      opacity: 0.5;
+    }
 
     /* ─── Footer ─── */
     footer {
@@ -437,9 +486,18 @@
     }
 
     /* ─── Scrollbar ─── */
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: var(--dark-bg); }
-    ::-webkit-scrollbar-thumb { background: var(--dark-border); border-radius: 3px; }
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--dark-bg);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--dark-border);
+      border-radius: 3px;
+    }
 
     /* ─── Utilities ─── */
     .text-gradient {
@@ -449,7 +507,9 @@
       background-clip: text;
     }
 
-    .divider { border-color: var(--dark-border); }
+    .divider {
+      border-color: var(--dark-border);
+    }
 
     ::selection {
       background: var(--brand-primary);
@@ -459,6 +519,7 @@
 
   {% block extra_head %}{% endblock %}
 </head>
+
 <body>
 
   <!-- ─── Navbar ─── -->
@@ -468,46 +529,47 @@
         <i class="bi bi-activity me-1"></i>UptimeChecker
       </a>
       <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-              aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto align-items-center gap-1">
           {% if user.is_authenticated %}
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'dashboard' %}">
-                <i class="bi bi-grid me-1"></i>Dashboard
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'url_add' %}">
-                <i class="bi bi-plus-circle me-1"></i>Add URL
-              </a>
-            </li>
-            <li class="nav-item ms-2">
-              <a class="nav-link {% if request.resolver_match.url_name == 'profile' %}active{% endif %}" href="{% url 'profile' %}" style="-webkit-text-fill-color: unset;">
-                <i class="bi bi-person-circle me-1"></i>{{ user.username }}
-              </a>
-            </li>
-            <li class="nav-item">
-              <form method="post" action="{% url 'logout' %}" class="d-inline">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-sm btn-outline-secondary">
-                  <i class="bi bi-box-arrow-right me-1"></i>Logout
-                </button>
-              </form>
-            </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'dashboard' %}">
+              <i class="bi bi-grid me-1"></i>Dashboard
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'url_add' %}">
+              <i class="bi bi-plus-circle me-1"></i>Add URL
+            </a>
+          </li>
+          <li class="nav-item ms-2">
+            <a class="nav-link {% if request.resolver_match.url_name == 'profile' %}active{% endif %}"
+              href="{% url 'profile' %}" style="-webkit-text-fill-color: unset;">
+              <i class="bi bi-person-circle me-1"></i>{{ user.username }}
+            </a>
+          </li>
+          <li class="nav-item">
+            <form method="post" action="{% url 'logout' %}" class="d-inline">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-sm btn-outline-secondary">
+                <i class="bi bi-box-arrow-right me-1"></i>Logout
+              </button>
+            </form>
+          </li>
           {% else %}
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'login' %}">
-                <i class="bi bi-box-arrow-in-right me-1"></i>Login
-              </a>
-            </li>
-            <li class="nav-item ms-1">
-              <a class="nav-link btn-nav-cta" href="{% url 'register' %}">
-                <i class="bi bi-rocket-takeoff me-1"></i>Get Started
-              </a>
-            </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'login' %}">
+              <i class="bi bi-box-arrow-in-right me-1"></i>Login
+            </a>
+          </li>
+          <li class="nav-item ms-1">
+            <a class="nav-link btn-nav-cta" href="{% url 'register' %}">
+              <i class="bi bi-rocket-takeoff me-1"></i>Get Started
+            </a>
+          </li>
           {% endif %}
         </ul>
       </div>
@@ -516,17 +578,19 @@
 
   <!-- ─── Messages ─── -->
   {% if messages %}
-    <div class="container mt-3">
-      {% for message in messages %}
-        <div class="alert alert-{{ message.tags|default:'info' }} alert-dismissible fade show d-flex align-items-center gap-2" role="alert">
-          {% if message.tags == 'success' %}<i class="bi bi-check-circle-fill"></i>
-          {% elif message.tags == 'error' or message.tags == 'danger' %}<i class="bi bi-exclamation-triangle-fill"></i>
-          {% else %}<i class="bi bi-info-circle-fill"></i>{% endif %}
-          {{ message }}
-          <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-      {% endfor %}
+  <div class="container mt-3">
+    {% for message in messages %}
+    <div
+      class="alert alert-{{ message.tags|default:'info' }} alert-dismissible fade show d-flex align-items-center gap-2"
+      role="alert">
+      {% if message.tags == 'success' %}<i class="bi bi-check-circle-fill"></i>
+      {% elif message.tags == 'error' or message.tags == 'danger' %}<i class="bi bi-exclamation-triangle-fill"></i>
+      {% else %}<i class="bi bi-info-circle-fill"></i>{% endif %}
+      {{ message }}
+      <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
+    {% endfor %}
+  </div>
   {% endif %}
 
   <!-- ─── Main Content ─── -->
@@ -542,7 +606,8 @@
         <div class="col-lg-4">
           <a href="{% url 'home' %}" class="footer-brand">UptimeChecker</a>
           <p class="footer-tagline">
-            Professional-grade monitoring for your websites and APIs. Get real-time status alerts and stay ahead of downtime.
+            Professional-grade monitoring for your websites and APIs. Get real-time status alerts and stay ahead of
+            downtime.
           </p>
           <div class="mt-4">
             <a href="#" class="footer-social-link"><i class="bi bi-twitter-x"></i></a>
@@ -557,8 +622,8 @@
           <ul class="footer-links">
             <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
             <li><a href="{% url 'url_add' %}">Add URL</a></li>
-            <li><a href="#">Public Status</a></li>
-            <li><a href="#">API Docs</a></li>
+            <li><a href="{% url 'public_status' %}">Public Status</a></li>
+            <li><a href="{% url 'api_docs' %}">API Docs</a></li>
           </ul>
         </div>
 
@@ -566,10 +631,8 @@
         <div class="col-6 col-md-3 col-lg-2">
           <h5 class="footer-heading">Support</h5>
           <ul class="footer-links">
-            <li><a href="#">Help Center</a></li>
-            <li><a href="#">Integration Guide</a></li>
-            <li><a href="#">Status Page</a></li>
-            <li><a href="#">Contact Us</a></li>
+            <li><a href="{% url 'integration_guide' %}">Integration Guide</a></li>
+            <li><a href="{% url 'contact' %}">Contact Us</a></li>
           </ul>
         </div>
 
@@ -577,9 +640,8 @@
         <div class="col-lg-2">
           <h5 class="footer-heading">Legal</h5>
           <ul class="footer-links">
-            <li><a href="#">Privacy Policy</a></li>
-            <li><a href="#">Terms of Service</a></li>
-            <li><a href="#">Cookie Policy</a></li>
+            <li><a href="{% url 'privacy' %}">Privacy Policy</a></li>
+            <li><a href="{% url 'terms' %}">Terms of Service</a></li>
           </ul>
         </div>
       </div>
@@ -588,8 +650,8 @@
         <div>&copy; {% now "Y" %} UptimeChecker. All rights reserved.</div>
         <div class="d-flex gap-4">
           <span>Made for Excellence</span>
-          <a href="#" class="text-success text-decoration-none">Privacy</a>
-          <a href="#" class="text-success text-decoration-none">Terms</a>
+          <a href="{% url 'privacy' %}" class="text-success text-decoration-none">Privacy</a>
+          <a href="{% url 'terms' %}" class="text-success text-decoration-none">Terms</a>
         </div>
       </div>
     </div>
@@ -606,7 +668,19 @@
         });
       }, 5000);
     });
+    function togglePassword(btn, inputId) {
+      const input = document.getElementById(inputId);
+      const icon = btn.querySelector('i');
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.classList.replace('bi-eye', 'bi-eye-slash');
+      } else {
+        input.type = 'password';
+        icon.classList.replace('bi-eye-slash', 'bi-eye');
+      }
+    }
   </script>
   {% block extra_js %}{% endblock %}
 </body>
+
 </html>

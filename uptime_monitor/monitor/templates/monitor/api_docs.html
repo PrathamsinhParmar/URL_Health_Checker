@@ -1,0 +1,104 @@
+{% extends 'monitor/base.html' %}
+
+{% block title %}API Documentation — UptimeChecker{% endblock %}
+{% block extra_head %}
+<style>
+  .page-hero {
+    padding: 6rem 0 4rem;
+    background: 
+      radial-gradient(ellipse 80% 60% at 50% 30%, rgba(255, 102, 0, 0.1) 0%, transparent 70%),
+      var(--dark-bg);
+    border-bottom: 1px solid var(--dark-border);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .page-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: 
+      linear-gradient(rgba(255, 102, 0, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 102, 0, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+  }
+
+  .info-content {
+    padding: 5rem 0;
+  }
+
+  code {
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="page-hero">
+    <div class="container position-relative">
+        <nav aria-label="breadcrumb" class="mb-3">
+            <ol class="breadcrumb mb-0" style="background: none; padding: 0;">
+                <li class="breadcrumb-item"><a href="{% url 'home' %}" class="text-secondary text-decoration-none">Home</a></li>
+                <li class="breadcrumb-item active text-primary" aria-current="page">API Documentation</li>
+            </ol>
+        </nav>
+        <h1 class="display-3 fw-bold text-gradient mb-3">API Reference</h1>
+        <p class="lead mb-0" style="color: var(--text-muted);">Scale your monitoring with our high-performance REST API.</p>
+    </div>
+</div>
+
+<div class="info-content">
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-lg-3 d-none d-lg-block">
+                <div class="sticky-top" style="top: 100px;">
+                    <h5 class="text-primary fw-bold mb-4">Core Concepts</h5>
+                    <nav class="nav flex-column">
+                        <a class="nav-link text-secondary fw-bold mb-2 p-0" href="#introduction">Introduction</a>
+                        <a class="nav-link text-secondary fw-bold mb-2 p-0" href="#authentication">Authentication</a>
+                        <a class="nav-link text-secondary fw-bold mb-2 p-0" href="#endpoints">Endpoints</a>
+                    </nav>
+                </div>
+            </div>
+            
+            <div class="col-lg-9">
+                <section id="introduction" class="mb-5">
+                    <h2 class="h3 fw-bold mb-4 text-primary">Introduction</h2>
+                    <p class="text-secondary lead">The UptimeChecker API is organized around REST. Our API has predictable resource-oriented URLs, accepts JSON-encoded request bodies, and returns JSON-encoded responses.</p>
+                </section>
+
+                <section id="authentication" class="mb-5">
+                    <div class="card p-4">
+                        <h2 class="h4 fw-bold mb-3"><i class="bi bi-key me-2"></i> Authentication</h2>
+                        <p class="text-secondary">Authenticate your account when using the API by including your secret API key in the request headers.</p>
+                        <div class="p-3 rounded mt-3" style="background: #050505; border: 1px solid var(--dark-border);">
+                            <code style="color: var(--brand-success);">Authorization: Bearer YOUR_SECRET_KEY</code>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="endpoints">
+                    <h2 class="h4 fw-bold mb-4 text-primary">Endpoints</h2>
+                    
+                    <div class="mb-5">
+                        <div class="d-flex align-items-center gap-3 mb-3">
+                            <span class="badge bg-success px-3 py-2">GET</span>
+                            <code class="h5 mb-0 text-white">/v1/monitors</code>
+                        </div>
+                        <p class="text-secondary">Returns a paginated list of your monitors and their current health status.</p>
+                    </div>
+
+                    <div class="mb-5">
+                        <div class="d-flex align-items-center gap-3 mb-3">
+                            <span class="badge bg-success px-3 py-2">GET</span>
+                            <code class="h5 mb-0 text-white">/v1/monitors/{id}</code>
+                        </div>
+                        <p class="text-secondary">Retrieves the detailed configuration and recent 24h history for a specific monitor.</p>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

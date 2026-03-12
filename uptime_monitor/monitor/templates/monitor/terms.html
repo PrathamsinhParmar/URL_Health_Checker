@@ -1,0 +1,109 @@
+{% extends 'monitor/base.html' %}
+
+{% block title %}Terms of Service — UptimeChecker{% endblock %}
+
+{% block extra_head %}
+<style>
+  .page-hero {
+    padding: 6rem 0 4rem;
+    background: 
+      radial-gradient(ellipse 80% 60% at 50% 30%, rgba(255, 102, 0, 0.1) 0%, transparent 70%),
+      var(--dark-bg);
+    border-bottom: 1px solid var(--dark-border);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .page-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: 
+      linear-gradient(rgba(255, 102, 0, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 102, 0, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+  }
+
+  .info-content {
+    padding: 5rem 0;
+  }
+
+  .policy-section {
+    margin-bottom: 4rem;
+  }
+
+  .policy-section h2 {
+    color: var(--brand-primary);
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .policy-section p, .policy-section li {
+    color: var(--text-secondary);
+    line-height: 1.8;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="page-hero">
+    <div class="container position-relative">
+        <nav aria-label="breadcrumb" class="mb-3">
+            <ol class="breadcrumb mb-0" style="background: none; padding: 0;">
+                <li class="breadcrumb-item"><a href="{% url 'home' %}" class="text-secondary text-decoration-none">Home</a></li>
+                <li class="breadcrumb-item active text-primary" aria-current="page">Terms of Service</li>
+            </ol>
+        </nav>
+        <h1 class="display-3 fw-bold text-gradient mb-3">Terms of Service</h1>
+        <p class="lead mb-0" style="color: var(--text-muted);">Last Updated: March 2026 — Version 2.0</p>
+    </div>
+</div>
+
+<div class="info-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="policy-section">
+                    <h2><i class="bi bi-file-earmark-check"></i> 1. Acceptance of Terms</h2>
+                    <p>By accessing or using UptimeChecker, you agree to be bound by these Terms of Service. These terms govern your use of the platform and all associated services.</p>
+                </div>
+
+                <div class="policy-section">
+                    <h2><i class="bi bi-cpu"></i> 2. Service Description</h2>
+                    <p>UptimeChecker provides automated website and API monitoring. While we strive for absolute accuracy, our monitoring is provided "as is" and we do not guarantee uninterrupted service or 100% notification reliability.</p>
+                </div>
+
+                <div class="policy-section">
+                    <h2><i class="bi bi-person-check"></i> 3. User Responsibilities</h2>
+                    <p>Users are responsible for maintaining the security of their accounts. Any activity conducted through your account is your sole responsibility. Automated scraping of our dashboard is strictly prohibited.</p>
+                </div>
+
+                <div class="policy-section">
+                    <h2><i class="bi bi-shield-exclamation"></i> 4. Limitation of Liability</h2>
+                    <p>UptimeChecker shall not be held liable for any data loss, business interruption, or financial damages resulting from the use or inability to use our monitoring tools.</p>
+                </div>
+
+                <div class="policy-section">
+                    <h2><i class="bi bi-balance"></i> 5. Governing Law</h2>
+                    <p>These terms are governed by the laws of the jurisdiction in which UptimeChecker operates, without regard to conflict of law principles.</p>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 d-none d-lg-block">
+                <div class="card p-4 sticky-top" style="top: 100px;">
+                    <h5 class="mb-3 fw-bold">Platform Links</h5>
+                    <ul class="list-unstyled mb-0">
+                        <li class="mb-2"><a href="{% url 'privacy' %}" class="text-secondary text-decoration-none">Privacy Policy</a></li>
+                        <li class="mb-2"><a href="{% url 'public_status' %}" class="text-secondary text-decoration-none">Public Status</a></li>
+                        <li class="mb-2"><a href="{% url 'api_docs' %}" class="text-secondary text-decoration-none">API Documentation</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
