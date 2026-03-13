@@ -1,7 +1,7 @@
 {% extends 'monitor/base.html' %}
 {% load widget_tweaks %}
 
-{% block title %}Create Account — UptimeChecker{% endblock %}
+{% block title %}Create Account — DownAlert{% endblock %}
 
 {% block extra_head %}
 <style>
@@ -118,6 +118,19 @@
           </div>
           {% else %}
           {{ form.username|add_class:"form-control"|attr:"placeholder:Choose a username" }}
+          {% endif %}
+        </div>
+
+        <!-- Email -->
+        <div class="field-wrapper">
+          <label for="{{ form.email.id_for_label }}" class="form-label">Email Address</label>
+          {% if form.email.errors %}
+          {{ form.email|add_class:"form-control is-invalid" }}
+          <div class="invalid-feedback">
+            {% for e in form.email.errors %}{{ e }}{% endfor %}
+          </div>
+          {% else %}
+          {{ form.email|add_class:"form-control"|attr:"placeholder:you@example.com" }}
           {% endif %}
         </div>
 

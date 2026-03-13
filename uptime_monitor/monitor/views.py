@@ -2,11 +2,10 @@ import json
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 
 from .models import MonitoredURL, CheckLog
-from .forms import MonitoredURLForm, UserUpdateForm
+from .forms import MonitoredURLForm, UserUpdateForm, CustomUserCreationForm
 
 
 def home(request):
@@ -162,14 +161,14 @@ def register(request):
         return redirect('dashboard')
 
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
             login(request, user)
             messages.success(request, f'🎉 Welcome, {user.username}! Your account has been created.')
             return redirect('dashboard')
     else:
-        form = UserCreationForm()
+        form = CustomUserCreationForm()
 
     context = {'form': form}
     return render(request, 'monitor/register.html', context)

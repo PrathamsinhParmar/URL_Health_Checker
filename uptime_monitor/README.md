@@ -1,4 +1,4 @@
-# UptimeChecker — URL Health Monitor
+# DownAlert — URL Health Monitor
 
 A production-ready **Django** application that monitors your websites 24/7, tracks response times, and sends email alerts when status changes.
 
@@ -164,7 +164,7 @@ DEFAULT_FROM_EMAIL = 'monitor@yourdomain.com'
    DATABASES = {
        'default': {
            'ENGINE': 'django.db.backends.postgresql',
-           'NAME': 'uptimechecker',
+           'NAME': 'downalert',
            'USER': 'youruser',
            'PASSWORD': 'yourpassword',
            'HOST': 'localhost',

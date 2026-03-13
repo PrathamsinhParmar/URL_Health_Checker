@@ -1,6 +1,6 @@
 #!/bin/bash
 # =============================================================
-# UptimeChecker — Setup Script
+# DownAlert — Setup Script
 # =============================================================
 # Usage: bash setup.sh
 # Run this from the uptime_monitor/ directory (where manage.py lives).
@@ -8,7 +8,7 @@
 set -e
 
 echo "============================================="
-echo "  UptimeChecker — Project Setup"
+echo "  DownAlert — Project Setup"
 echo "============================================="
 
 # 1. Install Python dependencies

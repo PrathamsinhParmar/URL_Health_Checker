@@ -93,4 +93,4 @@ LOGOUT_REDIRECT_URL = '/'
 
 # Email backend (console for dev; swap to SMTP for production)
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-DEFAULT_FROM_EMAIL = 'monitor@uptimechecker.dev'
+DEFAULT_FROM_EMAIL = 'monitor@downalert.dev'

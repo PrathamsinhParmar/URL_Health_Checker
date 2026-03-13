@@ -101,11 +101,11 @@ Your monitored URL has changed status:
   Status  : {status_text}
   Time    : {now}
 
-Please log in to your UptimeChecker dashboard to review the details
+Please log in to your DownAlert dashboard to review the details
 and recent check logs.
 
 -- 
-UptimeChecker Monitoring Service
+DownAlert Monitoring Service
 (This is an automated alert. Do not reply to this email.)
 """.strip()
 
