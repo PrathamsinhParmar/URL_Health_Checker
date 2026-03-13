@@ -114,7 +114,7 @@ class Command(BaseCommand):
                             f'  ↳ Status change detected! Sending alert to {mu.user.email or "(no email)"}'
                         )
                     )
-                    send_alert_email(mu, is_up)
+                    send_alert_email(mu, is_up, status_code=status_code)
 
         self.stdout.write('\n' + '─' * 50)
         self.stdout.write(
