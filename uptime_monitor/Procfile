@@ -1,0 +1,2 @@
+web: gunicorn uptime_monitor.wsgi
+worker: python manage.py check_urls
