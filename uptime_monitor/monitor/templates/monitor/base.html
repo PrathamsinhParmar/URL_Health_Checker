@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -608,8 +609,8 @@
   <!-- ─── Navbar ─── -->
   <nav class="navbar navbar-expand-lg sticky-top">
     <div class="container">
-      <a class="navbar-brand" href="{% url 'home' %}">
-        <i class="bi bi-activity me-1"></i>DownAlert
+      <a class="navbar-brand d-flex align-items-center" href="{% url 'home' %}" style="padding: 0; margin-right: 1.5rem;">
+        <img src="{% static 'monitor/images/downalert_logo.png' %}" alt="Logo" class="img-fluid" style="height: 38px; max-width: 200px; object-fit: contain;">
       </a>
       <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -687,7 +688,9 @@
       <div class="row gy-4">
         <!-- Brand & About -->
         <div class="col-lg-4">
-          <a href="{% url 'home' %}" class="footer-brand">DownAlert</a>
+          <a href="{% url 'home' %}" class="footer-brand d-inline-block" style="margin-bottom: 1.5rem;">
+            <img src="{% static 'monitor/images/downalert_logo.png' %}" alt="Logo" class="img-fluid" style="height: 40px; max-width: 200px; object-fit: contain;">
+          </a>
           <p class="footer-tagline">
             Professional-grade monitoring for your websites and APIs. Get real-time status alerts and stay ahead of
             downtime.
