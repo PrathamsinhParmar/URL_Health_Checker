@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login
 from django.contrib import messages
+from django.utils.timezone import localtime
 
 from .models import MonitoredURL, CheckLog
 from .forms import MonitoredURLForm, UserUpdateForm, CustomUserCreationForm
@@ -138,7 +139,7 @@ def url_detail(request, pk):
 
     chart_data = [
         {
-            'timestamp': log.timestamp.strftime('%Y-%m-%d %H:%M:%S'),
+            'timestamp': localtime(log.timestamp).strftime('%Y-%m-%d %H:%M:%S'),
             'response_time': round(log.response_time * 1000, 1),  # ms
         }
         for log in chart_logs

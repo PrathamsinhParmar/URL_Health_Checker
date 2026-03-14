@@ -174,7 +174,7 @@
     <div class="info-item">
       <div class="info-item-label">Last Checked</div>
       <div class="info-item-value">
-        {% if monitored_url.last_checked %}{{ monitored_url.last_checked|date:"N j, Y H:i:s" }} UTC{% else %}Never{% endif %}
+        {% if monitored_url.last_checked %}{{ monitored_url.last_checked|date:"N j, Y H:i:s" }} IST{% else %}Never{% endif %}
       </div>
     </div>
     <div class="info-item">
@@ -264,7 +264,7 @@
           {% for log in logs %}
           <tr>
             <td style="font-size: 0.85rem; color: var(--text-secondary); font-family: monospace;">
-              {{ log.timestamp|date:"Y-m-d H:i:s" }} UTC
+              {{ log.timestamp|date:"Y-m-d H:i:s" }} IST
             </td>
             <td>
               {% if log.status_code %}
