@@ -202,18 +202,6 @@ DEFAULT_FROM_EMAIL = 'monitor@yourdomain.com'
 
 ---
 
-## 🗝️ Default Admin Credentials (setup.sh)
-
-| Field | Value |
-|---|---|
-| Username | `admin` |
-| Password | `admin123` |
-| Email | `admin@example.com` |
-
-> ⚠️ Change these immediately in any non-local environment!
-
----
-
 ## 📝 License
 
 MIT — free to use and modify.
