@@ -225,20 +225,6 @@ Before deploying to a public-facing server (e.g., AWS, Render, Heroku, DigitalOc
 
 ---
 
-## 🗝️ Default Admin Credentials (via `setup.sh`)
-
-If you used the initialization scripts included with this project, the default superuser credentials are:
-
-| Field | Value |
-| :--- | :--- |
-| **Username** | `admin` |
-| **Password** | `admin123` |
-| **Email** | `admin@example.com` |
-
-> ⚠️ **CRITICAL WARNING:** Change this password immediately after logging into any staging or production environment.
-
----
-
 ## 📝 License
 
 This project is licensed under the **MIT License**. You are free to use, modify, distribute, and integrate this project into your own applications.
